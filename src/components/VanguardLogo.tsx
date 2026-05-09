@@ -1,4 +1,4 @@
-import { Shield } from "lucide-react";
+
 
 export function VanguardLogo({
   size = 40,

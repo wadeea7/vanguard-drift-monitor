@@ -28,7 +28,7 @@ function LoginPage() {
       <div className="relative w-full max-w-[450px] bg-card border border-border rounded-2xl p-10 shadow-2xl">
         <div className="flex flex-col items-center mb-8">
           <div className="mb-4">
-            <VanguardLogo size={80} withText={false} />
+            <VanguardLogo size={48} withText={false} />
           </div>
           <h1 className="text-3xl font-bold tracking-[0.25em] text-primary">VANGUARD</h1>
           <p className="text-sm text-muted-foreground mt-2">Continuous Drift & Performance Monitor</p>

@@ -23,6 +23,5 @@ npm run dev
 ```
 
 ## Project Info
-- Course: [Your Course Name]
-- Student: [Your Name]
+- Course: [Software Engineer]
 - Module: Continuous Drift & Performance Monitor (Web)

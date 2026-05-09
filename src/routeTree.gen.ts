@@ -9,13 +9,41 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TrendsRouteImport } from './routes/trends'
+import { Route as ThresholdsRouteImport } from './routes/thresholds'
+import { Route as MonitorRouteImport } from './routes/monitor'
 import { Route as ModelsRouteImport } from './routes/models'
+import { Route as DriftRouteImport } from './routes/drift'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as BaselineLinkRouteImport } from './routes/baseline-link'
+import { Route as BaselineRouteImport } from './routes/baseline'
+import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ModelsIdRouteImport } from './routes/models.$id'
 
+const TrendsRoute = TrendsRouteImport.update({
+  id: '/trends',
+  path: '/trends',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ThresholdsRoute = ThresholdsRouteImport.update({
+  id: '/thresholds',
+  path: '/thresholds',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MonitorRoute = MonitorRouteImport.update({
+  id: '/monitor',
+  path: '/monitor',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ModelsRoute = ModelsRouteImport.update({
   id: '/models',
   path: '/models',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DriftRoute = DriftRouteImport.update({
+  id: '/drift',
+  path: '/drift',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -23,49 +51,162 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BaselineLinkRoute = BaselineLinkRouteImport.update({
+  id: '/baseline-link',
+  path: '/baseline-link',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BaselineRoute = BaselineRouteImport.update({
+  id: '/baseline',
+  path: '/baseline',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ModelsIdRoute = ModelsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ModelsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/baseline': typeof BaselineRoute
+  '/baseline-link': typeof BaselineLinkRoute
   '/dashboard': typeof DashboardRoute
-  '/models': typeof ModelsRoute
+  '/drift': typeof DriftRoute
+  '/models': typeof ModelsRouteWithChildren
+  '/monitor': typeof MonitorRoute
+  '/thresholds': typeof ThresholdsRoute
+  '/trends': typeof TrendsRoute
+  '/models/$id': typeof ModelsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/baseline': typeof BaselineRoute
+  '/baseline-link': typeof BaselineLinkRoute
   '/dashboard': typeof DashboardRoute
-  '/models': typeof ModelsRoute
+  '/drift': typeof DriftRoute
+  '/models': typeof ModelsRouteWithChildren
+  '/monitor': typeof MonitorRoute
+  '/thresholds': typeof ThresholdsRoute
+  '/trends': typeof TrendsRoute
+  '/models/$id': typeof ModelsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/baseline': typeof BaselineRoute
+  '/baseline-link': typeof BaselineLinkRoute
   '/dashboard': typeof DashboardRoute
-  '/models': typeof ModelsRoute
+  '/drift': typeof DriftRoute
+  '/models': typeof ModelsRouteWithChildren
+  '/monitor': typeof MonitorRoute
+  '/thresholds': typeof ThresholdsRoute
+  '/trends': typeof TrendsRoute
+  '/models/$id': typeof ModelsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/models'
+  fullPaths:
+    | '/'
+    | '/alerts'
+    | '/baseline'
+    | '/baseline-link'
+    | '/dashboard'
+    | '/drift'
+    | '/models'
+    | '/monitor'
+    | '/thresholds'
+    | '/trends'
+    | '/models/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/models'
-  id: '__root__' | '/' | '/dashboard' | '/models'
+  to:
+    | '/'
+    | '/alerts'
+    | '/baseline'
+    | '/baseline-link'
+    | '/dashboard'
+    | '/drift'
+    | '/models'
+    | '/monitor'
+    | '/thresholds'
+    | '/trends'
+    | '/models/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/alerts'
+    | '/baseline'
+    | '/baseline-link'
+    | '/dashboard'
+    | '/drift'
+    | '/models'
+    | '/monitor'
+    | '/thresholds'
+    | '/trends'
+    | '/models/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertsRoute: typeof AlertsRoute
+  BaselineRoute: typeof BaselineRoute
+  BaselineLinkRoute: typeof BaselineLinkRoute
   DashboardRoute: typeof DashboardRoute
-  ModelsRoute: typeof ModelsRoute
+  DriftRoute: typeof DriftRoute
+  ModelsRoute: typeof ModelsRouteWithChildren
+  MonitorRoute: typeof MonitorRoute
+  ThresholdsRoute: typeof ThresholdsRoute
+  TrendsRoute: typeof TrendsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/trends': {
+      id: '/trends'
+      path: '/trends'
+      fullPath: '/trends'
+      preLoaderRoute: typeof TrendsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/thresholds': {
+      id: '/thresholds'
+      path: '/thresholds'
+      fullPath: '/thresholds'
+      preLoaderRoute: typeof ThresholdsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/monitor': {
+      id: '/monitor'
+      path: '/monitor'
+      fullPath: '/monitor'
+      preLoaderRoute: typeof MonitorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/models': {
       id: '/models'
       path: '/models'
       fullPath: '/models'
       preLoaderRoute: typeof ModelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drift': {
+      id: '/drift'
+      path: '/drift'
+      fullPath: '/drift'
+      preLoaderRoute: typeof DriftRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -75,6 +216,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/baseline-link': {
+      id: '/baseline-link'
+      path: '/baseline-link'
+      fullPath: '/baseline-link'
+      preLoaderRoute: typeof BaselineLinkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/baseline': {
+      id: '/baseline'
+      path: '/baseline'
+      fullPath: '/baseline'
+      preLoaderRoute: typeof BaselineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -82,13 +244,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/models/$id': {
+      id: '/models/$id'
+      path: '/$id'
+      fullPath: '/models/$id'
+      preLoaderRoute: typeof ModelsIdRouteImport
+      parentRoute: typeof ModelsRoute
+    }
   }
 }
 
+interface ModelsRouteChildren {
+  ModelsIdRoute: typeof ModelsIdRoute
+}
+
+const ModelsRouteChildren: ModelsRouteChildren = {
+  ModelsIdRoute: ModelsIdRoute,
+}
+
+const ModelsRouteWithChildren =
+  ModelsRoute._addFileChildren(ModelsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertsRoute: AlertsRoute,
+  BaselineRoute: BaselineRoute,
+  BaselineLinkRoute: BaselineLinkRoute,
   DashboardRoute: DashboardRoute,
-  ModelsRoute: ModelsRoute,
+  DriftRoute: DriftRoute,
+  ModelsRoute: ModelsRouteWithChildren,
+  MonitorRoute: MonitorRoute,
+  ThresholdsRoute: ThresholdsRoute,
+  TrendsRoute: TrendsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

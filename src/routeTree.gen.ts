@@ -15,7 +15,6 @@ import { Route as MonitorRouteImport } from './routes/monitor'
 import { Route as ModelsRouteImport } from './routes/models'
 import { Route as DriftRouteImport } from './routes/drift'
 import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as BaselineLinkRouteImport } from './routes/baseline-link'
 import { Route as BaselineRouteImport } from './routes/baseline'
 import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
@@ -51,11 +50,6 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BaselineLinkRoute = BaselineLinkRouteImport.update({
-  id: '/baseline-link',
-  path: '/baseline-link',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BaselineRoute = BaselineRouteImport.update({
   id: '/baseline',
   path: '/baseline',
@@ -81,7 +75,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/baseline': typeof BaselineRoute
-  '/baseline-link': typeof BaselineLinkRoute
   '/dashboard': typeof DashboardRoute
   '/drift': typeof DriftRoute
   '/models': typeof ModelsRouteWithChildren
@@ -94,7 +87,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/baseline': typeof BaselineRoute
-  '/baseline-link': typeof BaselineLinkRoute
   '/dashboard': typeof DashboardRoute
   '/drift': typeof DriftRoute
   '/models': typeof ModelsRouteWithChildren
@@ -108,7 +100,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/baseline': typeof BaselineRoute
-  '/baseline-link': typeof BaselineLinkRoute
   '/dashboard': typeof DashboardRoute
   '/drift': typeof DriftRoute
   '/models': typeof ModelsRouteWithChildren
@@ -123,7 +114,6 @@ export interface FileRouteTypes {
     | '/'
     | '/alerts'
     | '/baseline'
-    | '/baseline-link'
     | '/dashboard'
     | '/drift'
     | '/models'
@@ -136,7 +126,6 @@ export interface FileRouteTypes {
     | '/'
     | '/alerts'
     | '/baseline'
-    | '/baseline-link'
     | '/dashboard'
     | '/drift'
     | '/models'
@@ -149,7 +138,6 @@ export interface FileRouteTypes {
     | '/'
     | '/alerts'
     | '/baseline'
-    | '/baseline-link'
     | '/dashboard'
     | '/drift'
     | '/models'
@@ -163,7 +151,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AlertsRoute: typeof AlertsRoute
   BaselineRoute: typeof BaselineRoute
-  BaselineLinkRoute: typeof BaselineLinkRoute
   DashboardRoute: typeof DashboardRoute
   DriftRoute: typeof DriftRoute
   ModelsRoute: typeof ModelsRouteWithChildren
@@ -216,13 +203,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/baseline-link': {
-      id: '/baseline-link'
-      path: '/baseline-link'
-      fullPath: '/baseline-link'
-      preLoaderRoute: typeof BaselineLinkRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/baseline': {
       id: '/baseline'
       path: '/baseline'
@@ -269,7 +249,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlertsRoute: AlertsRoute,
   BaselineRoute: BaselineRoute,
-  BaselineLinkRoute: BaselineLinkRoute,
   DashboardRoute: DashboardRoute,
   DriftRoute: DriftRoute,
   ModelsRoute: ModelsRouteWithChildren,
@@ -280,3 +259,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

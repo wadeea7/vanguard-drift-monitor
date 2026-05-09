@@ -1,5 +1,3 @@
-
-
 export function VanguardLogo({
   size = 40,
   withText = true,
@@ -9,26 +7,43 @@ export function VanguardLogo({
   withText?: boolean;
   tagline?: boolean;
 }) {
+  const gradId = `vg-grad-${size}`;
   return (
     <div className="flex items-center gap-3">
       <div
-        className="relative flex items-center justify-center rounded-2xl bg-card/80 border border-primary/40 logo-glow"
+        className="relative flex items-center justify-center rounded-[28%] bg-card/70 border border-primary/30 logo-glow"
         style={{ width: size, height: size }}
       >
         <svg
-          viewBox="0 0 24 24"
+          viewBox="0 0 48 48"
           fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-primary"
           style={{ width: size * 0.62, height: size * 0.62 }}
         >
-          {/* Shield outline */}
-          <path d="M12 2.5 L20 5.5 V12 C20 16.5 16.5 19.8 12 21.5 C7.5 19.8 4 16.5 4 12 V5.5 Z" />
-          {/* Inner downward pennant */}
-          <path d="M8.5 7.5 H15.5 L12 15.5 Z" strokeWidth="1.6" />
+          <defs>
+            <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#7DD3FC" />
+              <stop offset="100%" stopColor="#0891B2" />
+            </linearGradient>
+          </defs>
+          {/* Shield outline — rounded, thick stroke */}
+          <path
+            d="M24 4 L40 9 V22 C40 31 33 38 24 42 C15 38 8 31 8 22 V9 Z"
+            stroke={`url(#${gradId})`}
+            strokeWidth="3"
+          />
+          {/* Inner mark: vertical stem + downward triangle (plumb / pennant) */}
+          <path
+            d="M24 14 V20"
+            stroke={`url(#${gradId})`}
+            strokeWidth="2.6"
+          />
+          <path
+            d="M16 20 H32 L24 32 Z"
+            stroke={`url(#${gradId})`}
+            strokeWidth="2.6"
+          />
         </svg>
       </div>
       {withText && (

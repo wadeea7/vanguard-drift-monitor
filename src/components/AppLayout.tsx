@@ -24,7 +24,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       <aside className="hidden md:flex w-[280px] shrink-0 flex-col border-r border-border bg-sidebar">
         <div className="px-6 py-6 border-b border-border">
           <Link to="/dashboard">
-            <VanguardLogo size={40} tagline />
+            <VanguardLogo size={48} tagline />
           </Link>
         </div>
         <nav className="flex-1 px-3 py-6 space-y-1">
